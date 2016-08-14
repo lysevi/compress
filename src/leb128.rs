@@ -1,6 +1,6 @@
 use num::{Num, NumCast, ToPrimitive};
 
-use std::ops::{BitAnd, BitOr,Shr,Shl};
+use std::ops::{BitAnd, BitOr, Shr, Shl};
 use std::default::Default;
 
 pub fn gen_compress<T:Num+
@@ -36,11 +36,11 @@ pub fn gen_decompress<T:Num+
     let mut bytes = 0;
     let _0: T = NumCast::from(0usize).unwrap();
     for v in values {
-        let readed:T = NumCast::from (*v).unwrap();
-        let sr:T=readed & NumCast::from(0x7f).unwrap();
-        result =result | (sr << NumCast::from (7 * bytes).unwrap());
+        let readed: T = NumCast::from(*v).unwrap();
+        let sr: T = readed & NumCast::from(0x7f).unwrap();
+        result = result | (sr << NumCast::from(7 * bytes).unwrap());
         bytes += 1;
-        if readed & NumCast::from (0x80).unwrap() == _0 {
+        if readed & NumCast::from(0x80).unwrap() == _0 {
             break;
         }
     }
@@ -48,5 +48,5 @@ pub fn gen_decompress<T:Num+
 }
 
 pub fn decompress(values: &Vec<u8>) -> u64 {
-   return gen_decompress(values);
+    return gen_decompress(values);
 }
